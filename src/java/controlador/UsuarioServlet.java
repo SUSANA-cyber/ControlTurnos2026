@@ -1,7 +1,9 @@
 package controlador;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -24,37 +26,39 @@ public class UsuarioServlet extends HttpServlet {
         String correo = req.getParameter("correo");
         String password = req.getParameter("password");
         String estado = req.getParameter("estado");
-
         String modo_inactivo = req.getParameter("modo_inactivo");
+        int rol_id = Integer.parseInt(req.getParameter("rol_id"));
 
-        // 🔥 SI ESTÁ ACTIVO → NO DEBE TENER MOTIVO
+        // Si está activo, no lleva motivo
         if ("Activo".equals(estado)) {
             modo_inactivo = null;
-        } else {
-            if (modo_inactivo == null || modo_inactivo.isEmpty()) {
-                modo_inactivo = "Sin especificar";
-            }
         }
 
         Connection con = null;
+        PreparedStatement psVal = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
         try {
             con = Conexion.getConexion();
 
-            // 🔍 VALIDAR USUARIO DUPLICADO
+            // Validar usuario duplicado
             String validar = "SELECT * FROM usuarios WHERE usuario=?";
-            PreparedStatement psVal = con.prepareStatement(validar);
+            psVal = con.prepareStatement(validar);
             psVal.setString(1, usuario);
-            ResultSet rs = psVal.executeQuery();
+            rs = psVal.executeQuery();
 
             if (rs.next()) {
                 res.sendRedirect("usuarios.jsp?error=1");
                 return;
             }
 
-            // 💾 INSERT
-            String sql = "INSERT INTO usuarios (dpi, nombre, usuario, area, correo, password, estado, modo_inactivo, puesto, turno) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(sql);
+            // Insertar usuario con rol_id directamente
+            String sql = "INSERT INTO usuarios "
+                    + "(dpi, nombre, usuario, area, correo, password, estado, modo_inactivo, puesto, turno, rol_id) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            ps = con.prepareStatement(sql);
 
             ps.setString(1, dpi);
             ps.setString(2, nombre);
@@ -66,10 +70,10 @@ public class UsuarioServlet extends HttpServlet {
             ps.setString(8, modo_inactivo);
             ps.setString(9, puesto);
             ps.setString(10, turno);
+            ps.setInt(11, rol_id);
 
             int resultado = ps.executeUpdate();
 
-            // ✅ VALIDAR SI INSERT FUNCIONÓ
             if (resultado > 0) {
                 res.sendRedirect("usuarios.jsp?ok=1");
             } else {
@@ -79,8 +83,12 @@ public class UsuarioServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             res.sendRedirect("usuarios.jsp?error=1");
+
         } finally {
             try {
+                if (rs != null) rs.close();
+                if (psVal != null) psVal.close();
+                if (ps != null) ps.close();
                 if (con != null) con.close();
             } catch (Exception e) {
                 e.printStackTrace();

@@ -19,33 +19,37 @@ public class LoginServlet extends HttpServlet {
         String usuario = req.getParameter("usuario");
         String password = req.getParameter("password");
 
-        System.out.println("Usuario: " + usuario);
-        System.out.println("Password: " + password);
-
         try {
             Connection con = Conexion.getConexion();
 
-            String sql = "SELECT * FROM usuarios WHERE usuario=? AND estado='Activo'";
+            String sql = "SELECT u.password, r.nombre AS rol " +
+                         "FROM usuarios u " +
+                         "LEFT JOIN roles r ON u.rol_id = r.id " +
+                         "WHERE u.usuario=? AND u.estado='Activo'";
+
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, usuario);
 
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+
                 String passBD = rs.getString("password");
+                String rol = rs.getString("rol");
 
                 if (passBD.equals(password)) {
+
                     HttpSession sesion = req.getSession();
                     sesion.setAttribute("usuario", usuario);
+                    sesion.setAttribute("rol", rol);
 
-                    System.out.println("LOGIN CORRECTO");
                     res.sendRedirect("dashboard.jsp");
+
                 } else {
-                    System.out.println("PASSWORD INCORRECTO");
                     res.sendRedirect("login.jsp?error=1");
                 }
+
             } else {
-                System.out.println("USUARIO NO EXISTE");
                 res.sendRedirect("login.jsp?error=1");
             }
 
