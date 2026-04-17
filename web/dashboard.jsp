@@ -3,8 +3,9 @@
 <%
 String usuario = (String) session.getAttribute("usuario");
 String rol = (String) session.getAttribute("rol");
+Integer idUsuario = (Integer) session.getAttribute("id_usuario");
 
-if(usuario == null){
+if(usuario == null || idUsuario == null){
     response.sendRedirect("login.jsp");
     return;
 }
@@ -19,7 +20,6 @@ if(rol == null){
 <head>
     <title>Menú Principal</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -95,23 +95,24 @@ if(rol == null){
     <p>Bienvenido: <%= usuario %> | Rol: <%= rol %></p>
 
     <% if("AdminRRHH".equals(rol)) { %>
-        <a href="usuarios.jsp" class="menu-btn">Agregar Empleado</a>
-        <a href="consultarUsuarios.jsp" class="menu-btn">Consultar Usuarios</a>
-        <a href="gestionRoles.jsp" class="menu-btn">Gestión de Roles</a>
-        <a href="solicitudes.jsp" class="menu-btn">Solicitudes</a>
+        <a href="<%= request.getContextPath() %>/usuarios.jsp" class="menu-btn">Agregar Empleado</a>
+        <a href="<%= request.getContextPath() %>/consultarUsuarios.jsp" class="menu-btn">Consultar Usuarios</a>
+        <a href="<%= request.getContextPath() %>/gestionRoles.jsp" class="menu-btn">Gestión de Roles</a>
+        <a href="<%= request.getContextPath() %>/turnos.jsp" class="menu-btn">Ver Turnos</a>
+        <a href="<%= request.getContextPath() %>/solicitudes.jsp" class="menu-btn">Solicitudes</a>
     <% } %>
 
     <% if("AdminArea".equals(rol)) { %>
-        <a href="turnos.jsp" class="menu-btn">Asignación de Turnos</a>
-        <a href="solicitudes.jsp" class="menu-btn">Solicitudes</a>
+        <a href="<%= request.getContextPath() %>/turnos.jsp" class="menu-btn">Asignación de Turnos</a>
+        <a href="<%= request.getContextPath() %>/solicitudes.jsp" class="menu-btn">Solicitudes</a>
     <% } %>
 
     <% if("Empleado".equals(rol)) { %>
-        <a href="marcaje.jsp" class="menu-btn">Marcaje</a>
-        <a href="solicitudes.jsp" class="menu-btn">Solicitudes</a>
+        <a href="<%= request.getContextPath() %>/marcaje.jsp" class="menu-btn">Marcaje</a>
+        <a href="<%= request.getContextPath() %>/solicitudes.jsp" class="menu-btn">Solicitudes</a>
     <% } %>
 
-    <a href="LogoutServlet" class="menu-btn logout">Cerrar sesión</a>
+    <a href="<%= request.getContextPath() %>/LogoutServlet" class="menu-btn logout">Cerrar sesión</a>
 
 </div>
 

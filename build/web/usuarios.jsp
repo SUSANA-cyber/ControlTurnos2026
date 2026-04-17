@@ -63,17 +63,30 @@ if(request.getParameter("error") != null){
 <label>Password</label>
 <input type="password" name="password"><br>
 
+<!-- 🔹 CAMBIO: ahora es turno_actual_id -->
 <label>Turno</label>
-<select name="turno">
-<option value="Matutino">Matutino</option>
-<option value="Vespertino">Vespertino</option>
-<option value="Diurno">Diurno</option>
+<select name="turno_actual_id">
+<option value="1">Matutino</option>
+<option value="2">Vespertino</option>
+<option value="3">Diurno</option>
 </select><br>
 
 <label>Estado</label>
 <select name="estado">
 <option value="Activo">Activo</option>
 <option value="Inactivo">Inactivo</option>
+</select><br>
+
+<!-- 🔹 NUEVO: motivo de inactividad -->
+<label>Motivo Inactividad</label>
+<select name="motivo_inactivo_id">
+<option value="">-- Ninguno --</option>
+<option value="1">Vacaciones</option>
+<option value="2">Permiso Personal</option>
+<option value="3">IGSS</option>
+<option value="4">Licencia Cumpleaños</option>
+<option value="5">Suspensión Laboral</option>
+<option value="6">Otros</option>
 </select><br>
 
 <label>Rol</label>

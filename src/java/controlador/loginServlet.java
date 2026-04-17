@@ -19,29 +19,35 @@ public class LoginServlet extends HttpServlet {
         String usuario = req.getParameter("usuario");
         String password = req.getParameter("password");
 
-        try {
-            Connection con = Conexion.getConexion();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-            String sql = "SELECT u.password, r.nombre AS rol " +
+        try {
+            con = Conexion.getConexion();
+
+            String sql = "SELECT u.id, u.password, r.nombre AS rol " +
                          "FROM usuarios u " +
                          "LEFT JOIN roles r ON u.rol_id = r.id " +
                          "WHERE u.usuario=? AND u.estado='Activo'";
 
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setString(1, usuario);
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             if (rs.next()) {
 
                 String passBD = rs.getString("password");
                 String rol = rs.getString("rol");
+                int idUsuario = rs.getInt("id");
 
                 if (passBD.equals(password)) {
 
                     HttpSession sesion = req.getSession();
                     sesion.setAttribute("usuario", usuario);
                     sesion.setAttribute("rol", rol);
+                    sesion.setAttribute("id_usuario", idUsuario);
 
                     res.sendRedirect("dashboard.jsp");
 
@@ -53,13 +59,18 @@ public class LoginServlet extends HttpServlet {
                 res.sendRedirect("login.jsp?error=1");
             }
 
-            rs.close();
-            ps.close();
-            con.close();
-
         } catch (Exception e) {
             e.printStackTrace();
             res.sendRedirect("login.jsp?error=2");
+
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
