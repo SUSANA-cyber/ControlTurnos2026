@@ -4,7 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/conexion/Conexion.java</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/turnos.jsp</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/UsuarioServlet.java</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/EliminarTurnoServlet.java</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/TurnoServlet.java</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/consultarUsuarios.jsp</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/MarcajeServlet.java</file>
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/login.jsp</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/usuarios.jsp</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/loginServlet.java</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/marcaje.jsp</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/LogoutServlet.java</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/dashboard.jsp</file>
         </group>
     </open-files>
 </project-private>
