@@ -98,7 +98,7 @@ if(rol == null){
         <a href="usuarios.jsp" class="menu-btn">Agregar Empleado</a>
         <a href="consultarUsuarios.jsp" class="menu-btn">Consultar Usuarios</a>
         <a href="gestionRoles.jsp" class="menu-btn">Gestión de Roles</a>
-        <a href="solicitudes.jsp" class="menu-btn">Solicitudes</a>
+        <a href="GstionSolicitudes.jsp" class="menu-btn">Solicitudes</a>
     <% } %>
 
     <% if("AdminArea".equals(rol)) { %>
@@ -108,7 +108,8 @@ if(rol == null){
 
     <% if("Empleado".equals(rol)) { %>
         <a href="marcaje.jsp" class="menu-btn">Marcaje</a>
-        <a href="solicitudes.jsp" class="menu-btn">Solicitudes</a>
+        <a href="Solicitudes.jsp" class="menu-btn">Solicitudes</a>
+        <a href="ActualizarTurno.jsp" class="menu-btn">Cambio De Turno</a>
     <% } %>
 
     <a href="LogoutServlet" class="menu-btn logout">Cerrar sesión</a>

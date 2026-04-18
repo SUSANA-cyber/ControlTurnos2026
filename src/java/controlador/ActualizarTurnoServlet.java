@@ -4,13 +4,20 @@ import conexion.Conexion;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
+import javax.servlet.ServletException; 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 @WebServlet("/ActualizarTurnoServlet")
 public class ActualizarTurnoServlet extends HttpServlet {
 
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+          
+    }
+    
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException {
 

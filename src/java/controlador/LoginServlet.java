@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
         try {
             Connection con = Conexion.getConexion();
 
-            String sql = "SELECT u.password, r.nombre AS rol " +
+            String sql = "SELECT u.id, u.password, r.nombre AS rol " +
                          "FROM usuarios u " +
                          "LEFT JOIN roles r ON u.rol_id = r.id " +
                          "WHERE u.usuario=? AND u.estado='Activo'";
@@ -33,13 +33,14 @@ public class LoginServlet extends HttpServlet {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-
+                int idCapturado = rs.getInt("id");
                 String passBD = rs.getString("password");
                 String rol = rs.getString("rol");
-
+                
                 if (passBD.equals(password)) {
 
                     HttpSession sesion = req.getSession();
+                    sesion.setAttribute("id_usuario", idCapturado);
                     sesion.setAttribute("usuario", usuario);
                     sesion.setAttribute("rol", rol);
 
