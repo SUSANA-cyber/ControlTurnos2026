@@ -21,32 +21,39 @@ public class ActualizarTurnoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException {
 
+        Connection con = null;
+        PreparedStatement ps = null;
+
         try {
 
             int id = Integer.parseInt(req.getParameter("id"));
             String inicio = req.getParameter("fecha_inicio");
             String fin = req.getParameter("fecha_fin");
-            String turno = req.getParameter("turno");
+            int turno_id = Integer.parseInt(req.getParameter("turno_id"));
 
-            Connection con = Conexion.getConexion();
+            con = Conexion.getConexion();
 
-            String sql = "UPDATE turnos SET fecha_inicio=?, fecha_fin=?, turno=? WHERE id=?";
-            PreparedStatement ps = con.prepareStatement(sql);
+            String sql = "UPDATE asignacion_turnos SET fecha_inicio=?, fecha_fin=?, turno_id=? WHERE id=?";
+            ps = con.prepareStatement(sql);
 
             ps.setString(1, inicio);
             ps.setString(2, fin);
-            ps.setString(3, turno);
+            ps.setInt(3, turno_id);
             ps.setInt(4, id);
 
             ps.executeUpdate();
-
-            ps.close();
-            con.close();
 
             res.sendRedirect(req.getContextPath() + "/turnos.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

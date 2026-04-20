@@ -1,5 +1,7 @@
 package controlador;
 
+
+
 import conexion.Conexion;
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,46 +15,63 @@ import javax.servlet.http.*;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
+    /**
+     *
+     * @param req
+     * @param res
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
         String usuario = req.getParameter("usuario");
         String password = req.getParameter("password");
 
-        try {
-            Connection con = Conexion.getConexion();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+  try {
+            con = Conexion.getConexion();
+
 
             String sql = "SELECT u.id, u.password, r.nombre AS rol " +
                          "FROM usuarios u " +
-                         "LEFT JOIN roles r ON u.rol_id = r.id " +
+                         "INNER JOIN roles r ON u.rol_id = r.id " +
                          "WHERE u.usuario=? AND u.estado='Activo'";
 
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setString(1, usuario);
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             if (rs.next()) {
                 int idCapturado = rs.getInt("id");
                 String passBD = rs.getString("password");
                 String rol = rs.getString("rol");
+
                 
+
+                int idUsuario = rs.getInt("id");
+
+
                 if (passBD.equals(password)) {
 
                     HttpSession sesion = req.getSession();
                     sesion.setAttribute("id_usuario", idCapturado);
                     sesion.setAttribute("usuario", usuario);
                     sesion.setAttribute("rol", rol);
+                    
 
                     res.sendRedirect("dashboard.jsp");
 
-                } else {
-                    res.sendRedirect("login.jsp?error=1");
-                }
+                } 
 
             } else {
                 res.sendRedirect("login.jsp?error=1");
-            }
+            } 
 
             rs.close();
             ps.close();
@@ -61,6 +80,15 @@ public class LoginServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             res.sendRedirect("login.jsp?error=2");
+
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

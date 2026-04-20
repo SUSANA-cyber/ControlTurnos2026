@@ -8,7 +8,6 @@
     <title>Asignación de Turnos</title>
     <meta charset="UTF-8">
 
-    <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -34,24 +33,18 @@
         h2, h3 {
             text-align: center;
             color: #00bfff;
-            text-shadow: 0 0 10px #00bfff;
         }
 
         label {
             margin-top: 10px;
             font-weight: bold;
             color: #00e6ff;
-            text-shadow: 0 0 5px #00e6ff;
         }
 
         .form-control, select {
             background: rgba(255,255,255,0.15);
             color: white;
             border: 1px solid #00bfff;
-        }
-
-        .form-control:focus, select:focus {
-            box-shadow: 0 0 10px #00bfff;
         }
 
         button {
@@ -63,12 +56,6 @@
             padding: 10px;
             border-radius: 10px;
             font-weight: bold;
-        }
-
-        button:hover {
-            background: #00bfff;
-            color: black;
-            box-shadow: 0 0 10px #00bfff;
         }
 
         table {
@@ -86,21 +73,8 @@
             padding: 10px;
         }
 
-        a {
-            color: #00bfff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .msg-ok {
-            color: #00ff99;
-            text-align: center;
-        }
-
-        .msg-error {
-            color: red;
-            text-align: center;
-        }
+        .msg-ok { color: #00ff99; text-align: center; }
+        .msg-error { color: red; text-align: center; }
     </style>
 </head>
 
@@ -115,7 +89,7 @@
 <form action="TurnoServlet" method="post">
 
 <label>Empleado:</label>
-<select name="id_usuario" class="form-control" required onchange="mostrarDatos(this)">
+<select name="usuario_id" class="form-control" required onchange="mostrarDatos(this)">
 <option value="">Seleccione un empleado</option>
 
 <%
@@ -160,11 +134,25 @@ data-puesto="<%=rs.getString("puesto")%>"
 <br>
 
 <label>Turno:</label>
-<select name="turno" class="form-control" required>
+<select name="turno_id" class="form-control" required>
 <option value="">Seleccione</option>
-<option value="Matutino">Matutino</option>
-<option value="Vespertino">Vespertino</option>
-<option value="Diurno">Diurno</option>
+
+<%
+String sqlTurnos = "SELECT id, nombre FROM turnos_catalogo";
+PreparedStatement psTurnos = con.prepareStatement(sqlTurnos);
+ResultSet rsTurnos = psTurnos.executeQuery();
+
+while(rsTurnos.next()){
+%>
+
+<option value="<%=rsTurnos.getInt("id")%>">
+<%=rsTurnos.getString("nombre")%>
+</option>
+
+<%
+}
+%>
+
 </select>
 
 <button type="submit">Guardar</button>
@@ -207,8 +195,10 @@ if("duplicado".equals(request.getParameter("error"))){
 </tr>
 
 <%
-String sql2 = "SELECT t.id, u.nombre, u.area, u.puesto, t.fecha_inicio, t.fecha_fin, t.turno " +
-"FROM turnos t INNER JOIN usuarios u ON t.id_usuario = u.id";
+String sql2 = "SELECT a.id, u.nombre, u.area, u.puesto, a.fecha_inicio, a.fecha_fin, t.nombre AS turno " +
+"FROM asignacion_turnos a " +
+"INNER JOIN usuarios u ON a.usuario_id = u.id " +
+"INNER JOIN turnos_catalogo t ON a.turno_id = t.id";
 
 PreparedStatement ps2 = con.prepareStatement(sql2);
 ResultSet rs2 = ps2.executeQuery();
@@ -236,6 +226,8 @@ onclick="return confirm('¿Eliminar turno?')">Eliminar</a>
 
 rs.close();
 ps.close();
+rsTurnos.close();
+psTurnos.close();
 rs2.close();
 ps2.close();
 con.close();

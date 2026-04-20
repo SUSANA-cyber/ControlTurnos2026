@@ -14,24 +14,31 @@ public class EliminarTurnoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException {
 
+        Connection con = null;
+        PreparedStatement ps = null;
+
         try {
             int id = Integer.parseInt(req.getParameter("id"));
 
-            Connection con = Conexion.getConexion();
+            con = Conexion.getConexion();
 
-            String sql = "DELETE FROM turnos WHERE id=?";
-            PreparedStatement ps = con.prepareStatement(sql);
+            String sql = "DELETE FROM asignacion_turnos WHERE id=?";
+            ps = con.prepareStatement(sql);
             ps.setInt(1, id);
 
             ps.executeUpdate();
-
-            ps.close();
-            con.close();
 
             res.sendRedirect(req.getContextPath() + "/turnos.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

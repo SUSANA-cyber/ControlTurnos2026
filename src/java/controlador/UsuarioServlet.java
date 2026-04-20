@@ -22,16 +22,27 @@ public class UsuarioServlet extends HttpServlet {
         String usuario = req.getParameter("usuario");
         String area = req.getParameter("area");
         String puesto = req.getParameter("puesto");
-        String turno = req.getParameter("turno");
+
+        // 🔹 CAMBIO: ahora es ID
+        int turno_actual_id = Integer.parseInt(req.getParameter("turno_actual_id"));
+
         String correo = req.getParameter("correo");
         String password = req.getParameter("password");
         String estado = req.getParameter("estado");
-        String modo_inactivo = req.getParameter("modo_inactivo");
+
+        // 🔹 NUEVO: motivo inactividad como ID
+        String motivoParam = req.getParameter("motivo_inactivo_id");
+        Integer motivo_inactivo_id = null;
+
+        if (motivoParam != null && !motivoParam.isEmpty()) {
+            motivo_inactivo_id = Integer.parseInt(motivoParam);
+        }
+
         int rol_id = Integer.parseInt(req.getParameter("rol_id"));
 
         // Si está activo, no lleva motivo
         if ("Activo".equals(estado)) {
-            modo_inactivo = null;
+            motivo_inactivo_id = null;
         }
 
         Connection con = null;
@@ -53,9 +64,9 @@ public class UsuarioServlet extends HttpServlet {
                 return;
             }
 
-            // Insertar usuario con rol_id directamente
+            // 🔹 INSERT ACTUALIZADO
             String sql = "INSERT INTO usuarios "
-                    + "(dpi, nombre, usuario, area, correo, password, estado, modo_inactivo, puesto, turno, rol_id) "
+                    + "(dpi, nombre, usuario, area, correo, password, estado, motivo_inactivo_id, puesto, turno_actual_id, rol_id) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             ps = con.prepareStatement(sql);
@@ -67,9 +78,16 @@ public class UsuarioServlet extends HttpServlet {
             ps.setString(5, correo);
             ps.setString(6, password);
             ps.setString(7, estado);
-            ps.setString(8, modo_inactivo);
+
+            // 🔹 manejar NULL correctamente
+            if (motivo_inactivo_id != null) {
+                ps.setInt(8, motivo_inactivo_id);
+            } else {
+                ps.setNull(8, java.sql.Types.INTEGER);
+            }
+
             ps.setString(9, puesto);
-            ps.setString(10, turno);
+            ps.setInt(10, turno_actual_id);
             ps.setInt(11, rol_id);
 
             int resultado = ps.executeUpdate();
