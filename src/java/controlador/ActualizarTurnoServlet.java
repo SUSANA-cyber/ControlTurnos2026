@@ -1,21 +1,16 @@
 package controlador;
 
-import conexion.Conexion;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+
+import ModeloDAO.TurnoDAO;
 
 @WebServlet("/ActualizarTurnoServlet")
 public class ActualizarTurnoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException {
-
-        Connection con = null;
-        PreparedStatement ps = null;
 
         try {
 
@@ -24,29 +19,17 @@ public class ActualizarTurnoServlet extends HttpServlet {
             String fin = req.getParameter("fecha_fin");
             int turno_id = Integer.parseInt(req.getParameter("turno_id"));
 
-            con = Conexion.getConexion();
+            // 🔹 DAO
+            TurnoDAO dao = new TurnoDAO();
 
-            String sql = "UPDATE asignacion_turnos SET fecha_inicio=?, fecha_fin=?, turno_id=? WHERE id=?";
-            ps = con.prepareStatement(sql);
+            // 🔹 Ejecutar UPDATE
+            dao.actualizarTurno(id, inicio, fin, turno_id);
 
-            ps.setString(1, inicio);
-            ps.setString(2, fin);
-            ps.setInt(3, turno_id);
-            ps.setInt(4, id);
-
-            ps.executeUpdate();
-
+            // 🔹 Redirección igual
             res.sendRedirect(req.getContextPath() + "/turnos.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (ps != null) ps.close();
-                if (con != null) con.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 }
