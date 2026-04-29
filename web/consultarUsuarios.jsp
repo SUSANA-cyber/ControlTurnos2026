@@ -1,17 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Consultar Usuarios</title>
-</head>
-<body>
-
 <h2>Consultar Usuarios</h2>
 
-<form action="../ConsultarUsuarioServlet" method="get">
+<form action="ConsultarUsuarioServlet" method="get">
     <input type="text" name="buscar" placeholder="Buscar usuario...">
     <button type="submit">Buscar</button>
 </form>
@@ -31,16 +23,16 @@
 <%
 ArrayList<String[]> lista = (ArrayList<String[]>) request.getAttribute("lista");
 
-if (lista != null && !lista.isEmpty()) {
-    for (String[] u : lista) {
+if(lista != null && !lista.isEmpty()){
+    for(String[] u : lista){
 %>
     <tr>
-        <td><%= u[0] %></td>
-        <td><%= u[1] %></td>
-        <td><%= u[2] %></td>
-        <td><%= u[3] %></td>
-        <td><%= u[4] %></td>
-        <td><%= u[5] %></td>
+        <td><%= u[0] %></td> <!-- usuario -->
+        <td><%= u[1] %></td> <!-- area -->
+        <td><%= u[2] %></td> <!-- puesto -->
+        <td><%= u[3] %></td> <!-- turno -->
+        <td><%= u[4] %></td> <!-- rol -->
+        <td><%= u[5] %></td> <!-- estado -->
     </tr>
 <%
     }
@@ -57,6 +49,3 @@ if (lista != null && !lista.isEmpty()) {
 
 <br>
 <a href="dashboard.jsp">Regresar</a>
-
-</body>
-</html>

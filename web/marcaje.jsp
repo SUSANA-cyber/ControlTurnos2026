@@ -1,9 +1,9 @@
-<<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
 Integer idUsuario = (Integer) session.getAttribute("id_usuario");
 
-if (idUsuario == null) {
+if(idUsuario == null){
     response.sendRedirect("login.jsp");
     return;
 }
@@ -34,11 +34,6 @@ button {
     color: white;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: 0.9;
 }
 </style>
 </head>
@@ -47,29 +42,31 @@ button:hover {
 
 <h2>Marcaje de Asistencia</h2>
 
+<!-- ⏱ RELOJ -->
 <div class="reloj" id="reloj"></div>
 
 <%
 String msg = request.getParameter("msg");
-if (msg != null) {
+if(msg != null){
 %>
 <p style="color:red;"><b><%= msg %></b></p>
 <%
 }
 %>
 
-<form action="../MarcajeServlet" method="post">
+<form action="MarcajeServlet" method="post">
 
-    <button type="submit" name="accion" value="entrada">Entrada</button>
-    <button type="submit" name="accion" value="descanso1">Descanso 1</button>
-    <button type="submit" name="accion" value="descanso2">Descanso 2</button>
-    <button type="submit" name="accion" value="salida">Salida</button>
+    <button name="accion" value="entrada">Entrada</button>
+    <button name="accion" value="descanso1">Descanso 1</button>
+    <button name="accion" value="descanso2">Descanso 2</button>
+    <button name="accion" value="salida">Salida</button>
 
 </form>
 
 <br>
 <a href="dashboard.jsp">Regresar</a>
 
+<!-- ⏱ SCRIPT RELOJ -->
 <script>
 function actualizarReloj() {
     const ahora = new Date();

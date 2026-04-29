@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Login</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,7 +12,7 @@
             height: 100vh;
             margin: 0;
             background-color: white;
-            background-image: url('<%= request.getContextPath() %>/img/123.png');
+            background-image: url('<%= request.getContextPath() %>/123.png');
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
@@ -86,8 +85,8 @@
 
             <h4 class="text-center text-light mb-3">Inicio de Sesión</h4>
 
-            <form action="../LoginServlet" method="post">
-
+            <form action="LoginServlet" method="post">
+                
                 <div class="mb-3">
                     <label class="form-label">Usuario</label>
                     <input type="text" name="usuario" class="form-control" required>

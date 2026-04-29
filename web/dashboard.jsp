@@ -5,12 +5,12 @@ String usuario = (String) session.getAttribute("usuario");
 String rol = (String) session.getAttribute("rol");
 Integer idUsuario = (Integer) session.getAttribute("id_usuario");
 
-if (usuario == null || idUsuario == null) {
-    response.sendRedirect("../vistas/login.jsp");
+if(usuario == null || idUsuario == null){
+    response.sendRedirect("login.jsp");
     return;
 }
 
-if (rol == null) {
+if(rol == null){
     rol = "";
 }
 %>
@@ -18,7 +18,6 @@ if (rol == null) {
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Menú Principal</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +27,7 @@ if (rol == null) {
             height: 100vh;
             margin: 0;
             background-color: white;
-            background-image: url('<%= request.getContextPath() %>/img/456.png');
+            background-image: url('<%= request.getContextPath() %>/456.png');
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
@@ -95,22 +94,22 @@ if (rol == null) {
     <h1>Menú Principal</h1>
     <p>Bienvenido: <%= usuario %> | Rol: <%= rol %></p>
 
-    <% if ("AdminRRHH".equals(rol)) { %>
-        <a href="<%= request.getContextPath() %>/vistas/usuarios.jsp" class="menu-btn">Agregar Empleado</a>
-        <a href="<%= request.getContextPath() %>/vistas/consultarUsuarios.jsp" class="menu-btn">Consultar Usuarios</a>
-        <a href="<%= request.getContextPath() %>/vistas/gestionRoles.jsp" class="menu-btn">Gestión de Roles</a>
-        <a href="<%= request.getContextPath() %>/vistas/turnos.jsp" class="menu-btn">Ver Turnos</a>
-        <a href="<%= request.getContextPath() %>/vistas/solicitudes.jsp" class="menu-btn">Solicitudes</a>
+    <% if("AdminRRHH".equals(rol)) { %>
+        <a href="<%= request.getContextPath() %>/usuarios.jsp" class="menu-btn">Agregar Empleado</a>
+        <a href="<%= request.getContextPath() %>/consultarUsuarios.jsp" class="menu-btn">Consultar Usuarios</a>
+        <a href="<%= request.getContextPath() %>/gestionRoles.jsp" class="menu-btn">Gestión de Roles</a>
+        <a href="<%= request.getContextPath() %>/turnos.jsp" class="menu-btn">Ver Turnos</a>
+        <a href="<%= request.getContextPath() %>/solicitudes.jsp" class="menu-btn">Solicitudes</a>
     <% } %>
 
-    <% if ("AdminArea".equals(rol)) { %>
-        <a href="<%= request.getContextPath() %>/vistas/turnos.jsp" class="menu-btn">Asignación de Turnos</a>
-        <a href="<%= request.getContextPath() %>/vistas/solicitudes.jsp" class="menu-btn">Solicitudes</a>
+    <% if("AdminArea".equals(rol)) { %>
+        <a href="<%= request.getContextPath() %>/turnos.jsp" class="menu-btn">Asignación de Turnos</a>
+        <a href="<%= request.getContextPath() %>/solicitudes.jsp" class="menu-btn">Solicitudes</a>
     <% } %>
 
-    <% if ("Empleado".equals(rol)) { %>
-        <a href="<%= request.getContextPath() %>/vistas/marcaje.jsp" class="menu-btn">Marcaje</a>
-        <a href="<%= request.getContextPath() %>/vistas/solicitudes.jsp" class="menu-btn">Solicitudes</a>
+    <% if("Empleado".equals(rol)) { %>
+        <a href="<%= request.getContextPath() %>/marcaje.jsp" class="menu-btn">Marcaje</a>
+        <a href="<%= request.getContextPath() %>/solicitudes.jsp" class="menu-btn">Solicitudes</a>
     <% } %>
 
     <a href="<%= request.getContextPath() %>/LogoutServlet" class="menu-btn logout">Cerrar sesión</a>

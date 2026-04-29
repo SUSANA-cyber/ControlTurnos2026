@@ -1,33 +1,44 @@
 package controlador;
 
+import conexion.Conexion;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
-import ModeloDAO.TurnoDAO;
 
 @WebServlet("/EliminarTurnoServlet")
 public class EliminarTurnoServlet extends HttpServlet {
 
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException {
 
-        try {
+        Connection con = null;
+        PreparedStatement ps = null;
 
+        try {
             int id = Integer.parseInt(req.getParameter("id"));
 
-            // 🔹 DAO
-            TurnoDAO dao = new TurnoDAO();
+            con = Conexion.getConexion();
 
-            // 🔹 ELIMINAR
-            dao.eliminarTurno(id);
+            String sql = "DELETE FROM asignacion_turnos WHERE id=?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
 
-            // 🔹 Redirección
+            ps.executeUpdate();
+
             res.sendRedirect(req.getContextPath() + "/turnos.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

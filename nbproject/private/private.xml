@@ -4,21 +4,22 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/conexion/Conexion.java</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/turnos.jsp</file>
+>>>>>>> parent of 177be92 (corrección de rutas)
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/UsuarioServlet.java</file>
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/EliminarTurnoServlet.java</file>
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/TurnoServlet.java</file>
-            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/Modelo/Turno.java</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/consultarUsuarios.jsp</file>
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/MarcajeServlet.java</file>
-            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/ModeloDAO/MarcajeDAO.java</file>
-            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/ModeloDAO/UsuarioDAO.java</file>
-            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/vistas/login.jsp</file>
-            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/LoginServlet.java</file>
-            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/ActualizarTurnoServlet.java</file>
-            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/index.jsp</file>
-            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/ModeloDAO/TurnoDAO.java</file>
-            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/Modelo/Usuario.java</file>
-            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/ConsultarUsuarioServlet.java</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/login.jsp</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/usuarios.jsp</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/loginServlet.java</file>
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/marcaje.jsp</file>
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/LogoutServlet.java</file>
+<<<<<<< HEAD
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/META-INF/context.xml</file>
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/Config/Conexion.java</file>
 =======
@@ -27,6 +28,9 @@
             <file>file:/D:/GitHub/ControlTurnos2026/web/GstionSolicitudes.jsp</file>
             <file>file:/D:/GitHub/ControlTurnos2026/src/java/controlador/LoginServlet.java</file>
 >>>>>>> 01e10329529a9074d6912716a1a5f010bef3c253
+=======
+            <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/dashboard.jsp</file>
+>>>>>>> parent of 177be92 (corrección de rutas)
         </group>
     </open-files>
 </project-private>

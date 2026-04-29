@@ -1,21 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
-<%@ page import="Config.Conexion" %>
-
-<%
-Integer idUsuario = (Integer) session.getAttribute("id_usuario");
-
-if (idUsuario == null) {
-    response.sendRedirect("login.jsp");
-    return;
-}
-%>
+<%@ page import="conexion.Conexion" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Asignación de Turnos</title>
+    <meta charset="UTF-8">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,14 +21,12 @@ if (idUsuario == null) {
             max-width: 900px;
             margin: auto;
             margin-top: 40px;
-            padding-bottom: 40px;
         }
 
         .card {
             background: rgba(0,0,0,0.75);
             border-radius: 15px;
             padding: 25px;
-            margin-bottom: 25px;
             box-shadow: 0 0 20px rgba(0,191,255,0.4);
         }
 
@@ -69,13 +58,23 @@ if (idUsuario == null) {
             font-weight: bold;
         }
 
+        table {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.7);
+        }
+
+        th {
+            background-color: #00bfff;
+            color: black;
+        }
+
+        td, th {
+            text-align: center;
+            padding: 10px;
+        }
+
         .msg-ok { color: #00ff99; text-align: center; }
         .msg-error { color: red; text-align: center; }
-
-        a {
-            color: #00bfff;
-            text-decoration: none;
-        }
     </style>
 </head>
 
@@ -87,7 +86,7 @@ if (idUsuario == null) {
 
 <h2>Asignación de Turnos</h2>
 
-<form action="../TurnoServlet" method="post">
+<form action="TurnoServlet" method="post">
 
 <label>Empleado:</label>
 <select name="usuario_id" class="form-control" required onchange="mostrarDatos(this)">
@@ -95,19 +94,19 @@ if (idUsuario == null) {
 
 <%
 Connection con = Conexion.getConexion();
-
 String sql = "SELECT id, nombre, area, puesto FROM usuarios WHERE estado='Activo'";
 PreparedStatement ps = con.prepareStatement(sql);
 ResultSet rs = ps.executeQuery();
 
-while (rs.next()) {
+while(rs.next()){
 %>
 
-<option
-value="<%= rs.getInt("id") %>"
-data-area="<%= rs.getString("area") %>"
-data-puesto="<%= rs.getString("puesto") %>">
-<%= rs.getString("nombre") %>
+<option 
+value="<%=rs.getInt("id")%>"
+data-area="<%=rs.getString("area")%>"
+data-puesto="<%=rs.getString("puesto")%>"
+>
+<%=rs.getString("nombre")%>
 </option>
 
 <%
@@ -143,11 +142,11 @@ String sqlTurnos = "SELECT id, nombre FROM turnos_catalogo";
 PreparedStatement psTurnos = con.prepareStatement(sqlTurnos);
 ResultSet rsTurnos = psTurnos.executeQuery();
 
-while (rsTurnos.next()) {
+while(rsTurnos.next()){
 %>
 
-<option value="<%= rsTurnos.getInt("id") %>">
-<%= rsTurnos.getString("nombre") %>
+<option value="<%=rsTurnos.getInt("id")%>">
+<%=rsTurnos.getString("nombre")%>
 </option>
 
 <%
@@ -161,19 +160,17 @@ while (rsTurnos.next()) {
 </form>
 
 <%
-if (request.getParameter("ok") != null) {
+if(request.getParameter("ok") != null){
 %>
 <p class="msg-ok">Asignación creada con éxito</p>
 <%
 }
-
-if ("1".equals(request.getParameter("error"))) {
+if("1".equals(request.getParameter("error"))){
 %>
 <p class="msg-error">Error en las fechas</p>
 <%
 }
-
-if ("duplicado".equals(request.getParameter("error"))) {
+if("duplicado".equals(request.getParameter("error"))){
 %>
 <p class="msg-error">El turno ya existe para ese empleado</p>
 <%
@@ -199,27 +196,27 @@ if ("duplicado".equals(request.getParameter("error"))) {
 
 <%
 String sql2 = "SELECT a.id, u.nombre, u.area, u.puesto, a.fecha_inicio, a.fecha_fin, t.nombre AS turno " +
-              "FROM asignacion_turnos a " +
-              "INNER JOIN usuarios u ON a.usuario_id = u.id " +
-              "INNER JOIN turnos_catalogo t ON a.turno_id = t.id";
+"FROM asignacion_turnos a " +
+"INNER JOIN usuarios u ON a.usuario_id = u.id " +
+"INNER JOIN turnos_catalogo t ON a.turno_id = t.id";
 
 PreparedStatement ps2 = con.prepareStatement(sql2);
 ResultSet rs2 = ps2.executeQuery();
 
-while (rs2.next()) {
+while(rs2.next()){
 %>
 
 <tr>
-<td><%= rs2.getString("nombre") %></td>
-<td><%= rs2.getString("area") %></td>
-<td><%= rs2.getString("puesto") %></td>
-<td><%= rs2.getString("fecha_inicio") %></td>
-<td><%= rs2.getString("fecha_fin") %></td>
-<td><%= rs2.getString("turno") %></td>
+<td><%=rs2.getString("nombre")%></td>
+<td><%=rs2.getString("area")%></td>
+<td><%=rs2.getString("puesto")%></td>
+<td><%=rs2.getString("fecha_inicio")%></td>
+<td><%=rs2.getString("fecha_fin")%></td>
+<td><%=rs2.getString("turno")%></td>
 <td>
-<a href="editarTurno.jsp?id=<%= rs2.getInt("id") %>">Editar</a>
+<a href="editarTurno.jsp?id=<%=rs2.getInt("id")%>">Editar</a>
 |
-<a href="../EliminarTurnoServlet?id=<%= rs2.getInt("id") %>"
+<a href="EliminarTurnoServlet?id=<%=rs2.getInt("id")%>"
 onclick="return confirm('¿Eliminar turno?')">Eliminar</a>
 </td>
 </tr>
@@ -238,22 +235,16 @@ con.close();
 
 </table>
 
-<br>
-<a href="dashboard.jsp">Regresar</a>
-
 </div>
 
 </div>
 
 <script>
-function mostrarDatos(select) {
-    let option = select.options[select.selectedIndex];
+function mostrarDatos(select){
+let option = select.options[select.selectedIndex];
 
-    document.getElementById("area").value =
-        option.getAttribute("data-area") || "";
-
-    document.getElementById("puesto").value =
-        option.getAttribute("data-puesto") || "";
+document.getElementById("area").value = option.getAttribute("data-area") || "";
+document.getElementById("puesto").value = option.getAttribute("data-puesto") || "";
 }
 </script>
 
