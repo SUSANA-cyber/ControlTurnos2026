@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/UsuarioServlet.java</file>
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/EliminarTurnoServlet.java</file>
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/TurnoServlet.java</file>
@@ -20,6 +21,12 @@
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/controlador/LogoutServlet.java</file>
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/web/META-INF/context.xml</file>
             <file>file:/C:/Users/DANIE/OneDrive/Documentos/NetBeansProjects/ControlTurnos2026/src/java/Config/Conexion.java</file>
+=======
+            <file>file:/D:/GitHub/ControlTurnos2026/web/turnos.jsp</file>
+            <file>file:/D:/GitHub/ControlTurnos2026/web/dashboard.jsp</file>
+            <file>file:/D:/GitHub/ControlTurnos2026/web/GstionSolicitudes.jsp</file>
+            <file>file:/D:/GitHub/ControlTurnos2026/src/java/controlador/LoginServlet.java</file>
+>>>>>>> 01e10329529a9074d6912716a1a5f010bef3c253
         </group>
     </open-files>
 </project-private>
